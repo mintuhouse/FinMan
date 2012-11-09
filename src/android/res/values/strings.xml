@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">FinMan</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
@@ -9,11 +10,18 @@
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="add_transaction">Add</string>
     <string name="add_billshot">Capture</string>
+    <string name="listbills">List</string>
     <string name="search_transaction">Search</string>
     <string name="help">Help</string>
     <string name="album_name">FinMan</string>
     <string name="cannot">Cannot</string>
     <string name="message_memorycard_unmounted">Memory Card Not Mounted</string>
     <string name="title_memorycard_unmounted">No Memory Card</string>
+    <string name="title_activity_open_cv">OpenCVActivity</string>
+    <string name="newbill_name">Name</string>
+    <string name="newbill_save">Save</string>
+    <string name="newbill_itemName">Item Name</string>
+    <string name="newbill_itemPrice">Item Price</string>
+    <string name="title_activity_list_bills">ListBillsActivity</string>
 
 </resources>

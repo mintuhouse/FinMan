@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/0.675924934/NDKROOT/delimiter=\:
+environment/project/0.675924934/NDKROOT/operation=replace
+environment/project/0.675924934/NDKROOT/value=/home/mintuhouse/a1_important/android-ndk-r7c
+environment/project/0.675924934/PATH/delimiter=\:
+environment/project/0.675924934/PATH/operation=replace
+environment/project/0.675924934/PATH/value=/home/mintuhouse/a1_important/android-ndk-r7c\:/bin\:/usr/bin
+environment/project/0.675924934/append=true
+environment/project/0.675924934/appendContributed=true

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newbill_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    	
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"  
+         android:id="@+id/newbill_itemName"   
+         android:layout_width="fill_parent"   
+         android:layout_height="wrap_content"  
+         android:padding="10dp"  
+         android:textSize="16sp" 
+         android:layout_weight="1"
+         android:hint="@string/newbill_itemName">  
+    </EditText>
+    
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"  
+         android:id="@+id/newbill_itemPrice"   
+         android:layout_width="fill_parent"   
+         android:layout_height="wrap_content"  
+         android:padding="10dp"  
+         android:textSize="16sp" 
+         android:layout_weight="3"
+         android:inputType="number"
+         android:text="0"
+         android:hint="@string/newbill_itemPrice">  
+    </EditText>
+
+</LinearLayout>

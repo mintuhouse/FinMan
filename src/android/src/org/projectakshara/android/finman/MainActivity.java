@@ -206,6 +206,11 @@ public class MainActivity extends Activity {
             		Log.d("Camera", "Not Available");
             		return super.onOptionsItemSelected(item);
             	}
+            case R.id.menu_listbills:
+            	Intent intent_billlist = new Intent(this, ListBillsActivity.class);
+                intent_billlist.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent_billlist);
+            	return super.onOptionsItemSelected(item);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -220,6 +225,10 @@ public class MainActivity extends Activity {
                           mCurrentPhotoPath, Toast.LENGTH_LONG).show();
                 setPic();
                 galleryAddPic();
+                Intent intent_opencv = new Intent(this, OpenCVActivity.class);
+                intent_opencv.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent_opencv.putExtra(IMAGE_PATH, mCurrentPhotoPath);
+                startActivity(intent_opencv);
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
             } else {

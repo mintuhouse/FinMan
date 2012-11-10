@@ -3,7 +3,163 @@
 	<title>FinMan - An Android OCR Application</title>
 </head>
 <body margin="0">
-	We will update our documentation <a href="http://www.cse.iitb.ac.in/~hasan/DIP/doc/">here</a>.
-	<iframe width="100%" height="90%" margin="0" src="http://www.cse.iitb.ac.in/~hasan/DIP/doc/"></iframe>
+<h1>FinMan - An Android OCR Application</h1>
+
+<h3>Abstract:</h3>
+
+<p>FinMan is an android application for managing you personal finance similar to one by <a href="https://play.google.com/store/apps/details?id=com.mint&amp;hl=en">mint.com</a>. But what we intended to provide in addition to basic features is the ability to automatically add bill items from the photo of the bill taken by an android mobile.</p>
+
+<p>We used google's <a href="https://code.google.com/p/tesseract-ocr/">Tesseract Engine</a> for OCR and OpenCV for image preprocessing.</p>
+
+<p>Note: <i>We will first try to describe the aim of our project and later what we could practically achieve. We have also hosted our code on github.</i></p>
+
+<h3> Report </h3>
+<p>We have divided our project into three modules (which were done independently which we planned to integrate later)</p>
+<section>
+<h4>1. Preprocessing the Image</h4> TODO Add references to names
+TODO: Link to code on github
+<i>Check the code to this part of our application <a href="https://github.com/mintuhouse/FinMan/blob/master/src/unix/imp.cpp">here</a></i><br/>
+<br>Aim:</b> To give binary image of bill to tesseract as input<br/>
+
+<em>The main challenge involved is to find the four corners of the bill and do the perspective transformation.</em><br>
+
+<div class="stepDescription">
+	<figure>
+		<img src="../data/doc/0_StartImage.png" alt="Input Image" />
+		<figcaption>0. Input Image</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/1_GreyScale.png" alt="Input Image" />
+		<figcaption>1. Converting the given image into grayscale</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/2_AdaptiveThresholding.png" alt="Adaptive Thresholding" />
+		<figcaption>2. Background in the image is removed by Adaptive Thresholding</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/3_MorphologicalClose.png" alt="Morphological Close - Find closed Regions" />
+		<figcaption>3. A Morphological close operation is done to find the closed regions. (One of the regions is the bill)</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/4_LargestContour.png" alt="Largest Countour" />
+		<figcaption>4. The bill i.e., the largest contour is found by using cvFindContours()</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/5_HoughTransform.png" alt="Hough Transform " />
+		<figcaption>5. Hough Transform is then run on outline of bill for line detection</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/6_QuadrilateralApprox.png" alt="Quadrilateral" />
+		<figcaption>6. Best approximation for four lines of the quadrilateral are found.</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/7_CornerDetection.png" alt="Corner Detection" />
+		<figcaption>7. Four corners are found by intersection of four lines</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/8_PerspectiveCorrection.png" alt="Perspective Correction" />
+		<figcaption>8. Perspective Transformation is done using four points</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/9_DifferenceOfGuassian.png" alt="Difference of Gaussians" />
+		<figcaption>9. Illumination correction - Difference of Gaussians</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/10_Normalization.png" alt="Normalization" />
+		<figcaption>10. Illumination correction - normalization</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/doc/11_Inversion.png" alt="Inversion of Image" />
+		<figcaption>11. Illumination correction - Inversion of resultant image</figcaption>
+	</figure>
+</div>
+</section>
+
+<section>
+<h4>2. OCR and Feature Extraction </h4>
+<p>Objective of <a href="https://github.com/mintuhouse/FinMan/blob/master/src/unix/main.cpp">main.cpp</a> is to extract the Total of the bill, Items and their prices from the processed binary image from <a href="https://github.com/mintuhouse/FinMan/blob/master/src/unix/imp.cpp">imp.cpp</a>.</p>
+
+<b>Challenges</b>
+<ul>
+<li>OCR of an image by tesseract is not inline i.e. Words seperated a bit farther may be outputed in different lines by tesseract. This is especially problematic for bills as items and prices are seperated by large spaces.<br>
+Way to tackle this is to send each text line at a time to tesseract.</li>
+<li>Distinguish between sections of image related to items, price and those of not.<br>
+We used presence of price (X*.XX, assumption mentioned below) as a token to detect the items section.</li>
+<li>Have to remove salt and pepper noise in the image to detect text lines properly. Used median filter to smooth.</li>
+<li>To vertical lines in the image as they may be interpreted as "l" by tesseract if we send that section to it.</li>
+<li>Tesseract is not accurate with its recognition of its digits because of varying intensities of characters<br>
+Examples :  "." is mistaken sometimes as "," or "-" or "_" or " ' " etc and 0 as D or O.<br>
+Way to tackle to add these error tolerant codes.</li>
+
+<pre>
+Output for above image is
+
+2 Carlsbem Bottle  16. 00  
+3 Heineken Draft Standard  24. 60��  
+1 Heineken Draft Half Liter  15. 20�@  
+2 Carlsberg Bucket (5 bottles)  80.00ȿ  
+3 Sirloin Steak  96.00�  
+1 Coke  3.50��  
+5 Ice Cream  18.00�  
+
+Total items 7 
+Total cost 376.40
+</pre>
+<p>Finally this image stores all the above information in the struct.</p>
+
+<b>Assumptions</b>
+<ol>
+<li>In the items, quantity, price section we assume price to occupy last column and quantity to be middle column if present.</li>
+<li>We assume price to be of the format X*.XX where X is digit.</li>
+</ol>
+</section>
+
+<section>
+<h4>3. Android Application:</h4>
+It involves designing and developing UI. Building an android application involves a steep learning curve. We need to first understand its API and usage.
+Then integrating native C++ code into Java based android using JNI (Java Native Interface). Thankfully android simplifies this process for you by providing you with Android NDK (Native Development Kit) which would compile the native code and link it with you main android application.
+
+Diagram describing basic workflow of our application:
+TODO
+
+</section>
+<section>
+<b>Status of the project:</b>
+<p>We could complete the image processing code and extract features from image of the bill using the C++ code. We also made the android app which could capture image send it to a C++ program and take a C++ struct with all details of bill filled in.<br>
+But we couldn't integrate the former C++ code with android using JNI as it uses library version of tesseract which couldn't be compiled on an android platform.</p>
+</section>
+
+<section>
+<b>Team &amp; Work Division:</b> TODO: Give facebook links to profile
+1. Image pre-processing -
+Sriram Bhargav &amp; Rajesh Rao
+2. OCR and feature extraction
+Varun Reddy &amp; Vinod Reddy
+3. Android application, UI and JNI integration
+Hasan Kumar &amp; Tarun
+</section>
+
+
+<p>Note: This is a project report for CS663 Digital Image Processing course under <a href="http://www.cse.iitb.ac.in/~sharat/">Prof.Sharat Chandran</a></p>
+
+<p>Finally we would like to conclude by saying that it has been a wonderful experience past few weeks and each of us have learnt a lot in the process<p>
+
+<br><br>
+Thanks,<br>
+Team FinMan<br>
+
+<section>
+References:
+<ol>
+	<li>Overview of Tesseract OCR Engine <a href="http://tesseract-ocr.googlecode.com/svn/trunk/doc/tesseracticdar2007.pdf">http://tesseract-ocr.googlecode.com/svn/trunk/doc/tesseracticdar2007.pdf</a></li>
+	<li>Android API Guide <a href="http://developer.android.com/guide/components/index.html">http://developer.android.com/guide/components/index.html</a></li>
+	<li></li>
+	<li></li>
+</ol>
+We also thank various blogs on internet which helped us build our android app UI and helped us resolve all the issues, bugs  we faced quickly
+<p>
+
+	<p>We will update our documentation <a href="http://www.cse.iitb.ac.in/~hasan/DIP/doc/">here</a>.</p>
+	<!--<iframe width="100%" height="90%" margin="0" src="http://www.cse.iitb.ac.in/~hasan/DIP/doc/"></iframe>-->
 </body>
 </html>

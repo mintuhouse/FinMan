@@ -100,7 +100,7 @@ void removeVertical(IplImage* img){
 			}
 		}
 		if(cnt != 0){
-			cout << st << " Reached " <<cnt << endl;
+			//cout << st << " Reached " <<cnt << endl;
 			for(int k = st;k < height;k++){
 				//cout << (int)data[k*step+i*channels] << "  ";
 				data[k*step+i*channels] = 255-data[k*step+i*channels];
@@ -548,9 +548,11 @@ int main(int argc, char *argv[]) {
   		//billInfo.itemName[i] = Items[itemSec][i];
   		//billInfo.itemPrice[i] = Prices[itemSec][i];
   		//billInfo.itemQuant[i] = quants[itemSec][i];
-  		cout << "Val " << billInfo.itemName[i] << " " << billInfo.itemPrice[i] << " " << billInfo.itemQuant[i] << " " << endl;
+  		cout  << billInfo.itemName[i] << " " << billInfo.itemPrice[i] << " " << billInfo.itemQuant[i] << " " << endl;
   	}
-  	cout << billInfo.nItems << " " << billInfo.total << endl;
+  	cout << endl;
+  	cout << "Total items " << billInfo.nItems << endl;
+  	cout << "Total cost" << billInfo.total << endl;
   	//cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE); 
   	//cvMoveWindow("mainWin", 100, 100);
   	//cvShowImage("mainWin", img1 );

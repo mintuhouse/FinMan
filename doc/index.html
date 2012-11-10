@@ -1,9 +1,33 @@
 <html>
 <head>
 	<title>FinMan - An Android OCR Application</title>
+	<style>
+	body{
+		margin: 0px;
+		padding: 30px;
+		background-color: #bbb;
+	}
+	figure{
+		width: 400px;
+	}
+	figure img{
+		width: 300px;
+	}
+	figure figcaption{
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.stepDescription figure{
+		float:left;
+	}
+	section{
+		clear:both;
+	}
+	</style>
 </head>
 <body margin="0">
 <h1>FinMan - An Android OCR Application</h1>
+<p>We will update our documentation <a href="http://www.cse.iitb.ac.in/~hasan/DIP/doc/">here</a>.</p>
 
 <h3>Abstract:</h3>
 
@@ -25,52 +49,52 @@ TODO: Link to code on github
 
 <div class="stepDescription">
 	<figure>
-		<img src="../data/doc/0_StartImage.png" alt="Input Image" />
-		<figcaption>0. Input Image</figcaption>
+		<img src="../data/webimages/0_StartImage.png" alt="Input Image" />
+		<figcaption>Fig. 0. Input Image</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/1_GreyScale.png" alt="Input Image" />
-		<figcaption>1. Converting the given image into grayscale</figcaption>
+		<img src="../data/webimages/1_GreyScale.png" alt="Input Image" />
+		<figcaption>Fig. 1. Converting the given image into grayscale</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/2_AdaptiveThresholding.png" alt="Adaptive Thresholding" />
-		<figcaption>2. Background in the image is removed by Adaptive Thresholding</figcaption>
+		<img src="../data/webimages/2_AdaptiveThresholding.png" alt="Adaptive Thresholding" />
+		<figcaption>Fig. 2. Background in the image is removed by Adaptive Thresholding</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/3_MorphologicalClose.png" alt="Morphological Close - Find closed Regions" />
-		<figcaption>3. A Morphological close operation is done to find the closed regions. (One of the regions is the bill)</figcaption>
+		<img src="../data/webimages/3_MorphologicalClose.png" alt="Morphological Close - Find closed Regions" />
+		<figcaption>Fig. 3. A Morphological close operation is done to find the closed regions. (One of the regions is the bill)</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/4_LargestContour.png" alt="Largest Countour" />
-		<figcaption>4. The bill i.e., the largest contour is found by using cvFindContours()</figcaption>
+		<img src="../data/webimages/4_LargestContour.png" alt="Largest Countour" />
+		<figcaption>Fig. 4. The bill i.e., the largest contour is found by using cvFindContours()</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/5_HoughTransform.png" alt="Hough Transform " />
-		<figcaption>5. Hough Transform is then run on outline of bill for line detection</figcaption>
+		<img src="../data/webimages/5_HoughTransform.png" alt="Hough Transform " />
+		<figcaption>Fig. 5. Hough Transform is then run on outline of bill for line detection</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/6_QuadrilateralApprox.png" alt="Quadrilateral" />
-		<figcaption>6. Best approximation for four lines of the quadrilateral are found.</figcaption>
+		<img src="../data/webimages/6_QuadrilateralApprox.png" alt="Quadrilateral" />
+		<figcaption>Fig. 6. Best approximation for four lines of the quadrilateral are found.</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/7_CornerDetection.png" alt="Corner Detection" />
-		<figcaption>7. Four corners are found by intersection of four lines</figcaption>
+		<img src="../data/webimages/7_CornerDetection.png" alt="Corner Detection" />
+		<figcaption>Fig. 7. Four corners are found by intersection of four lines</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/8_PerspectiveCorrection.png" alt="Perspective Correction" />
-		<figcaption>8. Perspective Transformation is done using four points</figcaption>
+		<img src="../data/webimages/8_PerspectiveCorrection.png" alt="Perspective Correction" />
+		<figcaption>Fig. 8. Perspective Transformation is done using four points</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/9_DifferenceOfGuassian.png" alt="Difference of Gaussians" />
-		<figcaption>9. Illumination correction - Difference of Gaussians</figcaption>
+		<img src="../data/webimages/9_DifferenceOfGuassian.png" alt="Difference of Gaussians" />
+		<figcaption>Fig. 9. Illumination correction - Difference of Gaussians</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/10_Normalization.png" alt="Normalization" />
-		<figcaption>10. Illumination correction - normalization</figcaption>
+		<img src="../data/webimages/10_Normalization.png" alt="Normalization" />
+		<figcaption>Fig. 10. Illumination correction - normalization</figcaption>
 	</figure>
 	<figure>
-		<img src="../data/doc/11_Inversion.png" alt="Inversion of Image" />
-		<figcaption>11. Illumination correction - Inversion of resultant image</figcaption>
+		<img src="../data/webimages/11_Inversion.png" alt="Inversion of Image" />
+		<figcaption>Fig. 11. Illumination correction - Inversion of resultant image</figcaption>
 	</figure>
 </div>
 </section>
@@ -91,20 +115,32 @@ We used presence of price (X*.XX, assumption mentioned below) as a token to dete
 Examples :  "." is mistaken sometimes as "," or "-" or "_" or " ' " etc and 0 as D or O.<br>
 Way to tackle to add these error tolerant codes.</li>
 
-<pre>
-Output for above image is
 
-2 Carlsbem Bottle  16. 00  
-3 Heineken Draft Standard  24. 60��  
-1 Heineken Draft Half Liter  15. 20�@  
-2 Carlsberg Bucket (5 bottles)  80.00ȿ  
-3 Sirloin Steak  96.00�  
-1 Coke  3.50��  
-5 Ice Cream  18.00�  
+	
+	<figure>
+		<img src="../data/webimages/20_LineParse.png" alt="Line By Line Parsing" />
+		<figcaption>Fig. 12. Line by Line parsing</figcaption>
+	</figure>
 
-Total items 7 
-Total cost 376.40
-</pre>
+	<figure>
+		<img src="../data/webimages/21_Output.png" alt="
+		<pre>
+		Output for above image (Fig.11) is
+
+		2 Carlsbem Bottle  16. 00  
+		3 Heineken Draft Standard  24. 60��  
+		1 Heineken Draft Half Liter  15. 20�  
+		2 Carlsberg Bucket (5 bottles)  80.00��  
+		3 Sirloin Steak  96.00x  
+		1 Coke  3.500�  
+		5 Ice Cream  18.00y  
+
+		Total items 7
+		Total cost 376.40
+		</pre>" />
+		<figcaption>Fig. 13. Output for Fig.11</figcaption>
+	</figure>
+
 <p>Finally this image stores all the above information in the struct.</p>
 
 <b>Assumptions</b>
@@ -116,17 +152,37 @@ Total cost 376.40
 
 <section>
 <h4>3. Android Application:</h4>
-It involves designing and developing UI. Building an android application involves a steep learning curve. We need to first understand its API and usage.
-Then integrating native C++ code into Java based android using JNI (Java Native Interface). Thankfully android simplifies this process for you by providing you with Android NDK (Native Development Kit) which would compile the native code and link it with you main android application.
+<p>It involves designing and developing UI. Building an android application involves a steep learning curve. We need to first understand its API and usage.</p>
+<p>Then integrating native C++ code into Java based android using JNI (Java Native Interface). Thankfully android simplifies this process for you by providing you with Android NDK (Native Development Kit) which would compile the native code and link it with you main android application.</p>
 
-Diagram describing basic workflow of our application:
-TODO
-
+<b>Diagram describing basic workflow of our application:</b>
+<div class="stepDescription">
+	<figure>
+		<img src="../data/webimages/31_welcome.png" alt="Android App Welcome Screen" />
+		<figcaption>Fig. 14. Android Welcome Screen</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/webimages/33_CameraView.png" alt="Camera View" />
+		<figcaption>Fig. 16. Image Captured from Camera</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/webimages/34_AddItem.png" alt="Add Item" />
+		<figcaption>Fig. 17. Details from C++ struct (hard-coded) (ideally would be resulting from processing image)</figcaption>
+	</figure>
+	<figure>
+		<img src="../data/webimages/35_ListOfItems.png" alt="List of Items" />
+		<figcaption>Fig. 18. List of Past Bills</figcaption>
+	</figure>
+</div>
 </section>
 <section>
 <b>Status of the project:</b>
 <p>We could complete the image processing code and extract features from image of the bill using the C++ code. We also made the android app which could capture image send it to a C++ program and take a C++ struct with all details of bill filled in.<br>
 But we couldn't integrate the former C++ code with android using JNI as it uses library version of tesseract which couldn't be compiled on an android platform.</p>
+<b><i> What went Wrong?</i></b>
+<p>We intitially worked on <a href="https://github.com/rmtheis/tess-two">tess-two</a>, a fork of Tesseract Tools for Android, made an sample android app following guidelines from <a href="http://gaut.am/making-an-ocr-android-app-using-tesseract/">here</a></p>
+<p> Later when we divided the work we used native tesseract-ocr engine and thought of integrating it with Java using JNI. But after the completion of the individual modules, found that it is not as simple as we expected and couldn't be done in time limit </p> 
+<p>Suggestion for next teams: Directly use tess-two (instead of tesseract) though it is a little imperfect</p>
 </section>
 
 <section>
@@ -144,7 +200,7 @@ Hasan Kumar &amp; Tarun
 
 <p>Finally we would like to conclude by saying that it has been a wonderful experience past few weeks and each of us have learnt a lot in the process<p>
 
-<br><br>
+<br>
 Thanks,<br>
 Team FinMan<br>
 
@@ -153,13 +209,11 @@ References:
 <ol>
 	<li>Overview of Tesseract OCR Engine <a href="http://tesseract-ocr.googlecode.com/svn/trunk/doc/tesseracticdar2007.pdf">http://tesseract-ocr.googlecode.com/svn/trunk/doc/tesseracticdar2007.pdf</a></li>
 	<li>Android API Guide <a href="http://developer.android.com/guide/components/index.html">http://developer.android.com/guide/components/index.html</a></li>
-	<li></li>
-	<li></li>
+	<li>Most of the image pre-processing techniques i.e., Illumination correction (difference of gaussians, normalization) are figured while experimenting with gimp and then looked up for corresponding OpenCV functions.</li>
 </ol>
 We also thank various blogs on internet which helped us build our android app UI and helped us resolve all the issues, bugs  we faced quickly
 <p>
 
-	<p>We will update our documentation <a href="http://www.cse.iitb.ac.in/~hasan/DIP/doc/">here</a>.</p>
 	<!--<iframe width="100%" height="90%" margin="0" src="http://www.cse.iitb.ac.in/~hasan/DIP/doc/"></iframe>-->
 </body>
 </html>

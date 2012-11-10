@@ -8,6 +8,7 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,13 +30,14 @@ public class OpenCVActivity extends Activity {
 	private String path;
 	//private Bill bill;
 
-	protected String	name;
-	protected int 	nItems;
+	protected String	name;     
+	protected int 	nItems;			//-- Updated with UI Changes
 	protected String[] itemName;
 	protected int[] 	itemPrice;
 	protected int 	total;
 	protected String imgPath;
 	
+	ArrayList< HashMap<String,String> > items;
 	BillItemAdapter adapter;
 	Activity a;
 	
@@ -55,7 +57,7 @@ public class OpenCVActivity extends Activity {
 					EditText mEditTextName = (EditText) findViewById(R.id.newbill_name);			
 					mEditTextName.setText(name);
 					
-					ArrayList< HashMap<String,String> > items = new ArrayList< HashMap<String,String> >();
+					items = new ArrayList< HashMap<String,String> >();
 					ListView itemsListView = (ListView) findViewById( R.id.newbill_items );
 					for (int i = 0; i < nItems; i++) {
 						HashMap<String,String> map = new HashMap<String, String>();
@@ -69,23 +71,49 @@ public class OpenCVActivity extends Activity {
 					
 					OnClickListener mSaveListener = new OnClickListener() {
 					    public void onClick(View v) {
+							adapter.notifyDataSetChanged(); //TODO: Not Neccessary
 					    	BillsDataSource adapter1 = new BillsDataSource(a);
 					    	adapter1.open();
 					    	Bill bill = new Bill();
-					    	//bill = adapter1.addBill(bill);
-					    	String[] mitemName = {"Item1","Item2", "Item3"};
-					    	int mnItems = 3;
-					    	int[] mitemPrice = {10,20,30};
-					    	int[] mitemQuantity = {2,3,4};
-					    	int mtotal = 200;
-					    	String mimgPath = "/img/path/as.png";
-					    	adapter1.addBill("Name of Bill", mnItems , mitemName, mitemPrice,  mitemQuantity, mtotal, mimgPath);
+					    	EditText mEditTextName = (EditText) findViewById(R.id.newbill_name);
+					    	String mname = mEditTextName.getText().toString().trim();
+					    	int mnItems = nItems;
+					    	String[] mitemName 	= new String[mnItems];
+					    	int[] mitemPrice 	= new int[mnItems];
+					    	int[] mitemQuantity	= new int[mnItems];
+					    	int mtotal = 0;
+					    	for(int i = 0;i < mnItems; i++){
+						    	HashMap<String,String> map = items.get(i);
+						    	mitemName[i] 	= map.get(KEY_ITEMNAME);
+								mitemPrice[i]	= Integer.parseInt(map.get(KEY_ITEMPRICE));
+								mtotal+=mitemPrice[i];
+					    	}
+					    	String mimgPath = imgPath;
+					    	adapter1.addBill(mname, mnItems , mitemName, mitemPrice,  mitemQuantity, mtotal, mimgPath);
 					    	adapter1.close();
+					    	
+					    	Intent intent = new Intent(a, ListBillsActivity.class);
+					    	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					    	startActivity(intent);
 					    }
 					}; 
 					
+					OnClickListener mAddListener = new OnClickListener(){
+						public void onClick(View v){
+							nItems++;
+							HashMap<String,String> map = new HashMap<String, String>();
+							map.put(KEY_ITEMNAME, "");
+							map.put(KEY_ITEMPRICE, Integer.toString(0));
+							items.add(map);
+							adapter.notifyDataSetChanged();
+						}
+					};
+					
 					Button saveButton = (Button) findViewById(R.id.newbill_save);
-					saveButton.setOnClickListener(mSaveListener);					
+					saveButton.setOnClickListener(mSaveListener);	
+					
+					Button addButton  = (Button) findViewById(R.id.newbill_add);
+					addButton.setOnClickListener(mAddListener);
 									
 				} break;
 				default:
@@ -126,5 +154,23 @@ public class OpenCVActivity extends Activity {
             }
         }
     */
+    
+    public void removeItemOnClickHandler(View v){
+    	/*int position = (Integer)v.getTag();
+    	Log.v("OpenCVActivity","Removing item at "+ Integer.toString(position));
+    	items.remove(position);*/
+    	items.remove((HashMap<String,String>)v.getTag());
+    	nItems--;
+    	adapter.notifyDataSetChanged();
+    }
+    
+    public void changeItem(int position, String newItemName, String newItemPrice, String newItemQuantity){
+    	Log.v("OpenCVActivity",newItemName+" is the new value of item at "+Integer.toString(position));
+    	HashMap<String,String> map = items.get(position);
+		map.put(KEY_ITEMNAME, newItemName);
+		map.put(KEY_ITEMPRICE, newItemPrice);
+		items.set(position, map);
+    	//adapter.notifyDataSetChanged();		
+    }
     
 }

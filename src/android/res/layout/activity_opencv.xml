@@ -14,7 +14,7 @@
     <ListView android:id="@+id/newbill_items" 
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"
-           android:layout_weight="1"
+        android:layout_weight="1"
         android:descendantFocusability="beforeDescendants">
     </ListView>		 
     
@@ -25,4 +25,13 @@
         android:layout_gravity="right"
            android:layout_weight="0"
         android:text="@string/newbill_save" />
+    
+    <Button
+        android:id="@+id/newbill_add"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_weight="0"
+        android:text="@string/newbill_add" />
+    
 </LinearLayout>

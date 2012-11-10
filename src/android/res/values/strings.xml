@@ -20,8 +20,10 @@
     <string name="title_activity_open_cv">OpenCVActivity</string>
     <string name="newbill_name">Name</string>
     <string name="newbill_save">Save</string>
+    <string name="newbill_add">Add</string>
     <string name="newbill_itemName">Item Name</string>
     <string name="newbill_itemPrice">Item Price</string>
+    <string name="delete">Delete</string>
     <string name="title_activity_list_bills">ListBillsActivity</string>
     
     <string name="billimage">Bill Image</string>

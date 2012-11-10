@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class MySQLiteBillHelper extends SQLiteOpenHelper {
+	private static final String TAG = "MySQLiteBill";
 	
 	  public static final String TABLE_BILLS = "bills";
 	  public static final String COLUMN_ID = "_id";
@@ -13,7 +14,7 @@ public class MySQLiteBillHelper extends SQLiteOpenHelper {
 	  public static final String COLUMN_NITEMS = "nItems";
 	  public static final String COLUMN_TOTAL = "total";
 	  public static final String COLUMN_IMGPATH = "imgPath";
-	  public static final String COLUMN_DATETIME = "dateTime";
+	  public static final String COLUMN_DATETIME = "datetime";
 
 	  private static final String DATABASE_NAME = "bills.db";
 	  private static final int DATABASE_VERSION = 1;
@@ -24,8 +25,8 @@ public class MySQLiteBillHelper extends SQLiteOpenHelper {
 			  + COLUMN_NAME + " text not null, "
 			  + COLUMN_NITEMS + " integer not null, "
 			  + COLUMN_TOTAL + " integer not null, "
-			  + COLUMN_IMGPATH + "text not null, "
-			  + COLUMN_DATETIME + "text not null "
+			  + COLUMN_IMGPATH + " text not null, "
+			  + COLUMN_DATETIME + " text not null "
 			  +");";
 
 	  public MySQLiteBillHelper(Context context) {

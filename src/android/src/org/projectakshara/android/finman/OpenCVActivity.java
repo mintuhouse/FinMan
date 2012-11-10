@@ -48,10 +48,9 @@ public class OpenCVActivity extends Activity {
 				case LoaderCallbackInterface.SUCCESS:
 				{
 					System.loadLibrary("jni_part");
-					Log.i(TAG, "OpenCV loaded successfully");
 					// Create and set View
 					processBill(path);
-					Log.v(TAG, "TEST "+name+" "+nItems+" "+imgPath+" "+total+" "+itemName[1]+" "+itemPrice[1]);
+					//Log.v(TAG, "TEST "+name+" "+nItems+" "+imgPath+" "+total+" "+itemName[1]+" "+itemPrice[1]);
 					
 					EditText mEditTextName = (EditText) findViewById(R.id.newbill_name);			
 					mEditTextName.setText(name);
@@ -70,7 +69,18 @@ public class OpenCVActivity extends Activity {
 					
 					OnClickListener mSaveListener = new OnClickListener() {
 					    public void onClick(View v) {
-					    						    	
+					    	BillsDataSource adapter1 = new BillsDataSource(a);
+					    	adapter1.open();
+					    	Bill bill = new Bill();
+					    	//bill = adapter1.addBill(bill);
+					    	String[] mitemName = {"Item1","Item2", "Item3"};
+					    	int mnItems = 3;
+					    	int[] mitemPrice = {10,20,30};
+					    	int[] mitemQuantity = {2,3,4};
+					    	int mtotal = 200;
+					    	String mimgPath = "/img/path/as.png";
+					    	adapter1.addBill("Name of Bill", mnItems , mitemName, mitemPrice,  mitemQuantity, mtotal, mimgPath);
+					    	adapter1.close();
 					    }
 					}; 
 					
@@ -95,7 +105,6 @@ public class OpenCVActivity extends Activity {
 		setContentView(R.layout.activity_opencv);
 		a = this;
 		
-        Log.i(TAG, "Trying to load OpenCV library");
         if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_2, this, mOpenCVCallBack))
         {
         	Log.e(TAG, "Cannot connect to OpenCV Manager");

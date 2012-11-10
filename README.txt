@@ -5,3 +5,4 @@ Outline of our work distribution:
 2. Varun & Vinod 	- OCR using Tesseract
 3. Hasan & Tarun	- Android Integration and UI
 
+We wish to use 1 late day.

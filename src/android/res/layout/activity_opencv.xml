@@ -1,35 +1,28 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:paddingLeft="16dp"
-	    android:paddingRight="16dp"
-	    android:orientation="vertical" >
-	    <EditText
-	        android:id="@+id/newbill_name"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0"
-	        android:hint="@string/newbill_name" />
-	    
-	    <ListView android:id="@+id/newbill_items" 
-	        android:layout_width="fill_parent" 
-	        android:layout_height="fill_parent"
-            android:layout_weight="1"
-	        android:descendantFocusability="beforeDescendants">
-	    </ListView>		 
-	    
-	    <Button
-	        android:id="@+id/newbill_save"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="right"
-            android:layout_weight="0"
-	        android:text="@string/newbill_save" />
-	</LinearLayout>
-
-</RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
+    <EditText
+        android:id="@+id/newbill_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:hint="@string/newbill_name" />
+    
+    <ListView android:id="@+id/newbill_items" 
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+           android:layout_weight="1"
+        android:descendantFocusability="beforeDescendants">
+    </ListView>		 
+    
+    <Button
+        android:id="@+id/newbill_save"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+           android:layout_weight="0"
+        android:text="@string/newbill_save" />
+</LinearLayout>

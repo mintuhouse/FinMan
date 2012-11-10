@@ -23,5 +23,8 @@
     <string name="newbill_itemName">Item Name</string>
     <string name="newbill_itemPrice">Item Price</string>
     <string name="title_activity_list_bills">ListBillsActivity</string>
+    
+    <string name="billimage">Bill Image</string>
+    <string name="billviewdetails">View Details</string>
 
 </resources>

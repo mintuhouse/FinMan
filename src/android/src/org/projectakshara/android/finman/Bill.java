@@ -16,11 +16,15 @@ public class Bill {
 	protected int[]   itemQuantity;
 	protected int 	total;
 	protected String imgPath;
-	protected String dateTime;
+	protected String datetime;
 	protected boolean saved;
 	
 	Bill(){
-		saved = false;
+		name	= "Bill Name";
+		nItems	= 0;
+		total	= 100;
+		imgPath = "dadda/dfadfaff/fdaf.dfs";
+		saved 	= false;
 	}
 	
 	Bill(String mname, int mnItems, String[] mitemName, int[] mitemPrice, int[] mitemQuantity, int mtotal, String mimgPath){
@@ -82,22 +86,26 @@ public class Bill {
 		 return df.format(date);
 	 }
 	 
-	 public Date getDateTime(){
+	 public Date getDatetime(){
 		 Date dt;
 		 try{
-			 dt = (Date) df.parse(this.dateTime);
+			 dt = (Date) df.parse(this.datetime);
 		 }catch(java.text.ParseException e){
 			 dt = Calendar.getInstance().getTime();// Returning today's date
 		 }
 		 return dt;
 	 }
 	 
+	 public String getDateTime(){
+		 return this.datetime;
+	 }
+	 
 	 public void setDate(Date datetime){
-		 this.dateTime = df.format(datetime);		 
+		 this.datetime = df.format(datetime);		 
 	 }
 	 
 	 public void setDate(String datetime){
-		 this.dateTime = datetime;
+		 this.datetime = datetime;
 	 }
 	 
 	 // Will be used by the ArrayAdapter in the ListView

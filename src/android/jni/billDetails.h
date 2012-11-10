@@ -6,5 +6,6 @@ struct billDetail {
 	int 	nItems;		//Assuming No. of Items in Bill less than 100
 	char 	itemName[100][50];
 	int 	itemPrice[100];
+	int    	itemQuant[100][10];
 	int 	total;
 } billDetails;

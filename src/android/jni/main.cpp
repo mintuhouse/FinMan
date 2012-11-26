@@ -1,7 +1,13 @@
+// This actually supposed to be the main code with the image processing stuff which fills \
+// billDetails object. But here filled with dummy data
+
 #include "billDetails.h"
 #include "stdlib.h"
 #include <string.h>
 using namespace std;
+
+
+// billDetail - structure containing all the details, path - image location
 
 int getBillDetails(struct billDetail * bill, const char* path){
 	//TODO: Dummy Data

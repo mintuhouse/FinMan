@@ -43,13 +43,17 @@ public class OpenCVActivity extends Activity {
 	
 	private native int processBill(String path);
 
+
+//  as soon as the image is saved on clicking this function is called
 	private BaseLoaderCallback  mOpenCVCallBack = new BaseLoaderCallback(this) {
     	@Override
     	public void onManagerConnected(int status) {
+    		// switch to check if opencv exits in mobile
     		switch (status) {
+
 				case LoaderCallbackInterface.SUCCESS:
 				{
-					System.loadLibrary("jni_part");
+					System.loadLibrary("jni_part");  // loading the jni - link part
 					// Create and set View
 					processBill(path);
 					//Log.v(TAG, "TEST "+name+" "+nItems+" "+imgPath+" "+total+" "+itemName[1]+" "+itemPrice[1]);
@@ -57,6 +61,8 @@ public class OpenCVActivity extends Activity {
 					EditText mEditTextName = (EditText) findViewById(R.id.newbill_name);			
 					mEditTextName.setText(name);
 					
+
+					// 
 					items = new ArrayList< HashMap<String,String> >();
 					ListView itemsListView = (ListView) findViewById( R.id.newbill_items );
 					for (int i = 0; i < nItems; i++) {
@@ -125,23 +131,33 @@ public class OpenCVActivity extends Activity {
 
 	};
 	
+	// general - view(frontend of android), activity(backend of android), intent(which connects activity an view)
+	// is called when an activity is created (like the main in java)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);	
-		path = this.getIntent().getStringExtra(IMAGE_PATH);
 
+        //this - activity and the intent which calls this activity is called whose private variable is IMAGE_PATH
+		path = this.getIntent().getStringExtra(IMAGE_PATH);   // setting the image path
+
+
+		//setting the front end for this activity
 		setContentView(R.layout.activity_opencv);
-		a = this;
+		a = this;   // this object needed to be saved for later use.
 		
-        if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_2, this, mOpenCVCallBack))
+        if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_2, this, mOpenCVCallBack)) /* If opencv exits then
+			it calls mOpenCVCallBack (the function above)
+        */
         {
         	Log.e(TAG, "Cannot connect to OpenCV Manager");
         }
     }
 
+
+// to set what happens on right clicking in mobile
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_opencv, menu);
+        getMenuInflater().inflate(R.menu.activity_opencv, menu);   // compulsory code to set the options of desired type
         return true;
     }
     /*
@@ -155,6 +171,8 @@ public class OpenCVActivity extends Activity {
         }
     */
     
+
+    // 
     public void removeItemOnClickHandler(View v){
     	/*int position = (Integer)v.getTag();
     	Log.v("OpenCVActivity","Removing item at "+ Integer.toString(position));

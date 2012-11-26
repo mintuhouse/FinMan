@@ -1,3 +1,6 @@
+/*
+Java native interface which links c++ of theirs with java of ours - android
+*/
 #include "jni_part.h"
 #include "bmpfmt.h"
 #include <android/log.h>
@@ -21,11 +24,14 @@ using namespace cv;
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
+
+// JNIEXPORT - packageame with filename processBill which returns j-int 
+// JNICALL mentions that it is a function
 JNIEXPORT jint JNICALL Java_org_projectakshara_android_finman_OpenCVActivity_processBill (
-   JNIEnv *env,
+   JNIEnv *env,		//compulsory arguments - this and next
    jobject obj,
    //jobject info,      // Bill object instantiation
-   jstring jpath
+   jstring jpath    // actual argument
 ){
 	LOGD("processBill Entered");
 
